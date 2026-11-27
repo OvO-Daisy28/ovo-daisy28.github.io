@@ -1,0 +1,6 @@
+/node_modules/
+/.next/
+/out/
+/.openai/.site-worktree/
+/.env*
+npm-debug.log*
