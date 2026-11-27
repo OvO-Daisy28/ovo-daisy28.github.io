@@ -3,13 +3,15 @@ import Link from "next/link";
 import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Braces, Cpu, GitFork, Terminal } from "lucide-react";
 import { github, projects } from "../lib/projects";
 
-const featured = projects.filter((project) => !project.status);
+const featured = ["wenge-rag", "marketing-agent", "uav-sitl"].map((slug) =>
+  projects.find((project) => project.slug === slug),
+);
 const reproduction = projects.find((project) => project.slug === "skypilot");
 
 const skills = [
-  { title: "机器人软件与仿真", description: "上层控制接口适配、软件在环与动力学仿真", items: ["Linux", "C++", "ROS", "PX4", "Gazebo", "MuJoCo", "Simulink"] },
   { title: "RAG 与模型部署", description: "批量文档导入、模型服务接入、检索和问答验证", items: ["Python", "FastAPI", "Docker", "RAGFlow", "Elasticsearch", "vLLM", "BGE-M3"] },
   { title: "Agent 应用", description: "工具调用、证据记录、结果核对和报告交付", items: ["Function Calling", "ReAct", "PostgreSQL"] },
+  { title: "机器人软件与仿真", description: "上层控制接口适配、软件在环与动力学仿真", items: ["Linux", "C++", "ROS", "PX4", "Gazebo", "MuJoCo", "Simulink"] },
 ];
 
 function ProjectPreview({ project }) {
@@ -60,8 +62,8 @@ export default function Home() {
           <div className="hero-copy">
             <p className="hero-meta">西南交通大学 · 控制工程硕士在读 · 2028 届</p>
             <h1 id="intro">你好，我是<span className="hero-name">卞颖慧</span></h1>
-            <p className="hero-focus">我关注机器人软件与 AI 应用</p>
-            <p className="hero-description">我的研究方向是四旋翼无人机双摆吊运控制。我做过 ROS／PX4 软件在环试验，也做过企业文档问答系统的原型、部署和接口验证。</p>
+            <p className="hero-focus">我关注 AI 应用与 Agent 开发</p>
+            <p className="hero-description">我在中科闻歌做过企业文档问答系统的原型、部署和接口验证，也独立开发了一个能调用工具、分析数据并生成可核对报告的 Agent。</p>
             <div className="hero-actions flex flex-wrap">
               <Link className="button button-gold" href="#projects">查看项目 <ArrowDown size={16} aria-hidden="true" /></Link>
               <a className="button button-neutral" href={github}><GitFork size={16} aria-hidden="true" /> GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>
@@ -76,8 +78,8 @@ export default function Home() {
       <section className="shell content-section about-section" id="about" aria-labelledby="about-title">
         <h2 id="about-title">关于我</h2>
         <div className="about-copy">
-          <p>本科读的是无人驾驶航空器系统工程。读研后，我用 Simulink 和 MuJoCo 建模与仿真，研究无人机吊运时吊绳和负载的摆动。</p>
-          <p>在无人机项目里，我参与上层控制接口适配，通过仿真和日志检查指令是否生效。在企业 RAG 实习和个人 Agent 项目里，我做的是把模型、业务接口和数据处理接起来，再用测试结果核对系统行为。</p>
+          <p>Agent 是我在课题之外主动探索的方向。我想弄清楚模型怎样调用工具、根据返回的数据决定下一步，以及用户怎样核对它的结论。做 Signal 时，我实现了工具调用和证据记录，并用原始数据复算报告里的指标。现在我也在复现开源项目 SkyPilot，学习怎样根据仿真反馈判断任务有没有完成。</p>
+          <p>我的硕士课题是四旋翼无人机双摆吊运控制，研究如何让无人机沿目标轨迹飞行，同时减小挂钩和负载的摆动。我也参与过 ROS／PX4 项目的上层控制接口适配和软件在环试验，用仿真和日志核对指令与状态反馈。</p>
         </div>
       </section>
 
