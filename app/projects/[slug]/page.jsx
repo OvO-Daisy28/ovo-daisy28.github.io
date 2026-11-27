@@ -16,6 +16,18 @@ export async function generateMetadata({ params }) {
   return project ? { title: project.title, description: project.short } : {};
 }
 
+function ProjectFigure({ src, width, height, alt, caption }) {
+  return (
+    <figure className="evidence-image project-figure">
+      <Image src={src} alt={alt} width={width} height={height} sizes="(max-width: 900px) 94vw, 870px" />
+      <figcaption>
+        <span>{caption}</span>
+        <a href={src} aria-label={`查看原图：${caption}`}>查看原图 <ArrowUpRight size={14} aria-hidden="true" /></a>
+      </figcaption>
+    </figure>
+  );
+}
+
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
@@ -39,9 +51,17 @@ export default async function ProjectPage({ params }) {
         </section>
         <section className="detail-section" aria-labelledby="flow-title">
           <h2 id="flow-title">{project.status ? "上游任务链路" : "系统设计"}</h2>
-          <ol className="flow-steps">{project.flow.map(([title, detail]) => (
-            <li key={title}><h3>{title}</h3><p>{detail}</p></li>
-          ))}</ol>
+          {project.architecture ? project.architecture.map(({ title, detail, figure }) => (
+            <div className="architecture-block" key={title}>
+              <h3>{title}</h3>
+              <p>{detail}</p>
+              <ProjectFigure {...figure} />
+            </div>
+          )) : (
+            <ol className="flow-steps">{project.flow.map(([title, detail]) => (
+              <li key={title}><h3>{title}</h3><p>{detail}</p></li>
+            ))}</ol>
+          )}
         </section>
         <section className="detail-section" aria-labelledby="contribution-title">
           <h2 id="contribution-title">{project.status ? "我在做的工作" : "我负责的工作"}</h2>
@@ -52,10 +72,12 @@ export default async function ProjectPage({ params }) {
         <section className="detail-section case-section" aria-labelledby="case-title">
           <h2 id="case-title">{project.caseStudy.title}</h2>
           <p>{project.caseStudy.detail}</p>
+          {project.caseStudy.figure && <ProjectFigure {...project.caseStudy.figure} />}
         </section>
         <section className="detail-section evidence-section" aria-labelledby="evidence-title">
           <h2 id="evidence-title">{project.evidence.title}</h2>
           <p>{project.evidence.detail}</p>
+          {project.evidence.figure && <ProjectFigure {...project.evidence.figure} />}
           {project.evidence.image && (
             <figure className="evidence-image"><Image src={project.evidence.image} alt={project.evidence.alt} width={1440} height={1060} sizes="(max-width: 720px) 94vw, 910px" /></figure>
           )}
