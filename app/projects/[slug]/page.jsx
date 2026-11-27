@@ -30,19 +30,24 @@ export default async function ProjectPage({ params }) {
           <div className="detail-category"><span>{project.category}</span>{project.status && <span className="project-status">{project.status}</span>}</div>
           <h1>{project.title}</h1>
           <p>{project.short}</p>
-          <ul className="tag-list" aria-label="项目技术栈">{project.tech.map((tag) => <li key={tag}>{tag}</li>)}</ul>
         </div>
       </section>
       <div className="shell detail-content">
-        <section className="detail-summary" aria-label="项目概览">
-          <div><h2>项目目标</h2><p>{project.goal}</p></div>
-          <div><h2>我的工作</h2><p>{project.role}</p></div>
+        <section className="detail-section" aria-labelledby="goal-title">
+          <h2 id="goal-title">{project.status ? "复现目标" : "要解决的问题"}</h2>
+          <p>{project.goal}</p>
         </section>
         <section className="detail-section" aria-labelledby="flow-title">
-          <h2 id="flow-title">{project.status ? "上游任务链路" : "系统流程"}</h2>
+          <h2 id="flow-title">{project.status ? "上游任务链路" : "系统设计"}</h2>
           <ol className="flow-steps">{project.flow.map(([title, detail]) => (
             <li key={title}><h3>{title}</h3><p>{detail}</p></li>
           ))}</ol>
+        </section>
+        <section className="detail-section" aria-labelledby="contribution-title">
+          <h2 id="contribution-title">{project.status ? "我在做的工作" : "我负责的工作"}</h2>
+          <ul className="contribution-list">{project.contributions.map(([title, detail]) => (
+            <li key={title}><h3>{title}</h3><p>{detail}</p></li>
+          ))}</ul>
         </section>
         <section className="detail-section case-section" aria-labelledby="case-title">
           <h2 id="case-title">{project.caseStudy.title}</h2>
@@ -62,6 +67,10 @@ export default async function ProjectPage({ params }) {
               <a className={`button ${index === 0 ? "button-dark" : "button-neutral"}`} key={href} href={href}>{label}<ArrowUpRight size={16} aria-hidden="true" /></a>
             ))}</div>
           )}
+        </section>
+        <section className="detail-section project-facts" aria-label="状态与技术栈">
+          <div><h2>项目状态</h2><p>{project.stateNote}</p></div>
+          <div><h2>技术栈</h2><ul className="tag-list" aria-label="项目技术栈">{project.tech.map((tag) => <li key={tag}>{tag}</li>)}</ul></div>
         </section>
         <nav className="related-nav" aria-label="其他项目"><h2>继续查看</h2>{related.map(({ slug, title }) => (
           <Link key={slug} href={`/projects/${slug}/`}>{title}<ArrowRight size={17} aria-hidden="true" /></Link>
