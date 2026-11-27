@@ -4,8 +4,8 @@ import { github } from "../lib/projects";
 import "./globals.css";
 
 export const metadata = {
-  title: { default: "卞颖慧｜AI 应用与 Agent 开发", template: "%s · 卞颖慧" },
-  description: "西南交通大学控制工程硕士在读。关注 AI 应用与 Agent 开发，做过企业 RAG 实习和个人 Agent 项目，硕士课题为四旋翼无人机双摆吊运控制。",
+  title: { default: "卞颖慧｜机器人软件开发与机器人 Agent", template: "%s · 卞颖慧" },
+  description: "西南交通大学控制工程硕士在读，2028 届，研究四旋翼无人机双摆吊运控制。做过 ROS／PX4 软件在环试验和数据分析 Agent，目前在复现开源无人机 Agent。",
 };
 
 export default function RootLayout({ children }) {
