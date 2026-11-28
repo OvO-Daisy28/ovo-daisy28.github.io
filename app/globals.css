@@ -80,8 +80,9 @@ section[id] { scroll-margin-top: 68px; }
 .about-copy p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.9; }
 .about-copy p + p { margin-top: 9px; }
 
-.project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+.project-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; }
 .flight { --project-bg: #f2e3be; --project-ink: #6e4e18; }
+.competition { --project-bg: #f3e8cc; --project-ink: #694a20; }
 .rag { --project-bg: #f7edd8; --project-ink: #6d4d21; }
 .signal { --project-bg: #eee5d5; --project-ink: #644623; }
 .pilot { --project-bg: #f5ecda; --project-ink: #735024; }
@@ -99,6 +100,7 @@ section[id] { scroll-margin-top: 68px; }
 .preview-part { display: inline-flex; align-items: center; gap: 6px; color: var(--project-ink); }
 .preview-step { background: #fffefa; border: 1px solid #d8c29b; border-radius: 7px; padding: 8px 9px; font-size: 12px; font-weight: 650; white-space: nowrap; }
 .screenshot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.competition-preview img { object-position: center; }
 .project-card-body { display: flex; flex-direction: column; flex: 1; padding: 17px 17px 20px; }
 .card-category { margin: 0; font-size: 12px; color: var(--project-ink, var(--accent)); font-weight: 650; }
 .project-card h3 { margin: 7px 0; font-size: 19px; line-height: 1.36; font-weight: 740; letter-spacing: -.025em; }
@@ -128,6 +130,11 @@ section[id] { scroll-margin-top: 68px; }
 .experience-list p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
 .experience-list svg { color: var(--accent); }
 .experience-list a { display: block; padding: 4px; }
+.award-proof { grid-column: 2/-1; margin: 0; width: min(100%, 400px); }
+.award-proof .award-screenshot { position: relative; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.award-screenshot img { width: 100%; height: auto; display: block; }
+.award-screenshot span { position: absolute; inset: 82.2% 1px 13.1%; border: 2px solid #926123; pointer-events: none; }
+.award-proof figcaption { color: var(--muted); font-size: 13px; margin-top: 5px; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 15px; }
 .skills-grid article { border-top: 1px solid #d7be8b; padding-top: 14px; }
@@ -177,6 +184,16 @@ section[id] { scroll-margin-top: 68px; }
   padding: 9px 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px;
 }
 .project-figure figcaption a { display: inline-flex; align-items: center; gap: 3px; color: var(--accent); text-decoration: underline; }
+.competition-facts { display: grid; grid-template-columns: 1.45fr 1fr 1fr; gap: 10px; margin: 12px 0; }
+.competition-facts div { border: 1px solid var(--line); background: var(--white); border-radius: 8px; padding: 11px 13px; }
+.competition-facts dt { color: var(--muted); font-size: 13px; }
+.competition-facts dd { margin: 4px 0 0; font-size: 15px; font-weight: 650; }
+.competition-source a { display: inline-flex; align-items: center; gap: 4px; color: var(--accent); text-decoration: underline; }
+.competition-gallery { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; margin: 15px 0; }
+.competition-gallery figure { margin: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--white); }
+.competition-gallery a, .competition-gallery img { display: block; width: 100%; height: auto; }
+.competition-gallery figcaption { display: grid; gap: 3px; padding: 9px 12px 12px; }
+.competition-gallery figcaption span { color: var(--muted); font-size: 13px; line-height: 1.6; }
 .detail-links { margin-top: 14px; }
 .project-facts { display: grid; grid-template-columns: .8fr 1fr; gap: 20px; }
 .related-nav { padding-top: 21px; }
@@ -207,6 +224,7 @@ section[id] { scroll-margin-top: 68px; }
   .content-section > h2, .experience-inner > h2 { margin-bottom: 14px; }
   .about-section, .experience-inner { grid-template-columns: 1fr; gap: 0; }
   .project-grid, .skills-grid { grid-template-columns: 1fr; gap: 12px; }
+  .competition-facts, .competition-gallery { grid-template-columns: 1fr; }
   .project-preview { height: 115px; }
   .current-project { grid-template-columns: auto 1fr; gap: 8px 10px; padding: 13px; }
   .current-project > svg { align-self: start; }

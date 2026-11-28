@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Braces, Cpu, GitFork, Terminal } from "lucide-react";
-import { github, projects } from "../lib/projects";
+import { ArrowDown, ArrowRight, ArrowUpRight, BookOpen, Braces, Cpu, GitFork, Terminal, Trophy } from "lucide-react";
+import { github, projects, robotacAward } from "../lib/projects";
 
-const featured = ["uav-sitl", "marketing-agent", "wenge-rag"].map((slug) =>
+const featured = ["uav-sitl", "robotac", "marketing-agent", "wenge-rag"].map((slug) =>
   projects.find((project) => project.slug === slug),
 );
 const reproduction = projects.find((project) => project.slug === "skypilot");
@@ -15,6 +15,13 @@ const skills = [
 ];
 
 function ProjectPreview({ project }) {
+  if (project.competition) {
+    return (
+      <div className="project-preview screenshot competition-preview">
+        <Image src="/media/robotac/ground-load.webp" alt="Bobac 单臂机器人向无人机货舱装载物料" width={848} height={498} sizes="(max-width: 700px) 94vw, (max-width: 900px) 45vw, 270px" />
+      </div>
+    );
+  }
   if (project.evidence.image) {
     return (
       <div className="project-preview screenshot">
@@ -101,6 +108,18 @@ export default function Home() {
         <div className="shell content-section experience-inner">
           <h2 id="experience-title">经历与教育</h2>
           <div className="experience-list">
+            <article>
+              <Trophy size={20} aria-hidden="true" />
+              <div><h3>ROBOTAC · {robotacAward.title}</h3><p>2026 · {robotacAward.team}</p></div>
+              <Link href="/projects/robotac/" aria-label="查看 ROBOTAC 竞赛项目"><ArrowUpRight size={17} aria-hidden="true" /></Link>
+              <figure className="award-proof">
+                <a className="award-screenshot" href={robotacAward.source} aria-label="打开 ROBOTAC 官方国赛公示">
+                  <Image src={robotacAward.screenshot} alt="ROBOTAC 官方国赛公示一等奖节选，标出了从容应队和西南交通大学所在行" width={616} height={412} sizes="(max-width: 600px) 80vw, 400px" />
+                  <span aria-hidden="true" />
+                </a>
+                <figcaption>官方国赛公示（一等奖节选）</figcaption>
+              </figure>
+            </article>
             <article>
               <Braces size={20} aria-hidden="true" />
               <div><h3>中科闻歌 · 企业 RAG 实习</h3><p>完成文档处理 POC，部署平台和模型服务，并做批量入库、问答接口和图谱验证。</p></div>

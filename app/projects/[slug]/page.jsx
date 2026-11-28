@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, ImagePlus } from "lucide-react";
-import { projects } from "../../../lib/projects";
+import { projects, robotacAward } from "../../../lib/projects";
 
 export function generateStaticParams() {
   return projects.map(({ slug }) => ({ slug }));
@@ -28,6 +28,44 @@ function ProjectFigure({ src, width, height, alt, caption }) {
   );
 }
 
+function CompetitionStory({ project }) {
+  const { event, frames, role, year } = project.competition;
+  return (
+    <>
+      <section className="detail-section" aria-labelledby="competition-title">
+        <h2 id="competition-title">赛项与结果</h2>
+        <dl className="competition-facts">
+          <div><dt>赛项</dt><dd>{year} · {event}</dd></div>
+          <div><dt>参赛角色</dt><dd>{role} · 西南交通大学</dd></div>
+          <div><dt>获奖</dt><dd>{robotacAward.title}</dd></div>
+        </dl>
+        <p className="competition-source"><a href={robotacAward.source}>查阅 ROBOTAC 官方国赛公示 <ArrowUpRight size={15} aria-hidden="true" /></a></p>
+      </section>
+      <section className="detail-section" aria-labelledby="demo-title">
+        <h2 id="demo-title">空地协作演示</h2>
+        <p>{project.goal}</p>
+        <div className="competition-gallery">
+          {frames.map(([id, title, caption]) => (
+            <figure key={id}>
+              <a href={`/media/robotac/${id}.webp`} aria-label={`查看关键帧：${title}`}>
+                <Image src={`/media/robotac/${id}.webp`} alt={caption} width={848} height={498} sizes="(max-width: 600px) 94vw, 420px" />
+              </a>
+              <figcaption><strong>{title}</strong><span>{caption}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+        <p>画面截自预选赛提交视频。地面和空中赛段取自两次独立录制，均使用同一套空地接续仿真流程。</p>
+      </section>
+      <section className="detail-section" aria-labelledby="competition-tech-title">
+        <h2 id="competition-tech-title">团队技术亮点</h2>
+        <ul className="contribution-list">{project.contributions.map(([title, detail]) => (
+          <li key={title}><h3>{title}</h3><p>{detail}</p></li>
+        ))}</ul>
+      </section>
+    </>
+  );
+}
+
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
@@ -45,6 +83,7 @@ export default async function ProjectPage({ params }) {
         </div>
       </section>
       <div className="shell detail-content">
+        {project.competition ? <CompetitionStory project={project} /> : <>
         <section className="detail-section" aria-labelledby="goal-title">
           <h2 id="goal-title">{project.status ? "复现目标" : "要解决的问题"}</h2>
           <p>{project.goal}</p>
@@ -90,6 +129,7 @@ export default async function ProjectPage({ params }) {
             ))}</div>
           )}
         </section>
+        </>}
         <section className="detail-section project-facts" aria-label="状态与技术栈">
           <div><h2>项目状态</h2><p>{project.stateNote}</p></div>
           <div><h2>技术栈</h2><ul className="tag-list" aria-label="项目技术栈">{project.tech.map((tag) => <li key={tag}>{tag}</li>)}</ul></div>
